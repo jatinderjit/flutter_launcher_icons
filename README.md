@@ -91,6 +91,8 @@ Shown below is the full list of attributes which you can specify within your Flu
 
 - `image_path_ios`: The location of the icon image file specific for iOS platform (optional - if not defined then the image_path is used)
 
+- `flavor`: The flavor name (optional)
+
 _Note: iOS icons should [fill the entire image](https://stackoverflow.com/questions/26014461/black-border-on-my-ios-icon) and not contain transparent borders._
 
 The next two attributes are only used when generating Android launcher icon
@@ -102,9 +104,10 @@ be used to fill out the background of the adaptive icon.
 
 ## Flavor support
 
-Create a Flutter Launcher Icons configuration file for your flavor. The config file is called `flutter_launcher_icons-<flavor>.yaml` by replacing `<flavor>` by the name of your desired flavor.
+Create a Flutter Launcher Icons configuration file for your flavor.
+The flavors are automatically derived for files matching the pattern `flutter_launcher_icons-<flavor>.yaml`.
 
-The configuration file format is the same.
+The configuration file format is the same for the default config file location.
 
 An example project with flavor support enabled [has been added to the examples](https://github.com/fluttercommunity/flutter_launcher_icons/tree/master/example/flavors).
 

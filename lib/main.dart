@@ -42,7 +42,7 @@ Future<void> createIconsFromArguments(List<String> arguments) async {
     exit(0);
   }
 
-  // Flavors manangement
+  // Flavors management
   final flavors = getFlavors();
   final hasFlavors = flavors.isNotEmpty;
 
@@ -54,8 +54,8 @@ Future<void> createIconsFromArguments(List<String> arguments) async {
     throw const NoConfigFoundException();
   }
 
-  // Create icons
-  if (!hasFlavors) {
+  // Create icons if not flavors present, or config file path is set explicitly
+  if (!hasFlavors || argResults[fileOption] != null) {
     try {
       createIconsFromConfig(yamlConfig);
       print('\n✓ Successfully generated launcher icons');
@@ -70,6 +70,7 @@ Future<void> createIconsFromArguments(List<String> arguments) async {
         print('\nFlavor: $flavor');
         final Map<String, dynamic> yamlConfig =
             loadConfigFile(flavorConfigFile(flavor), flavorConfigFile(flavor));
+        flavor = yamlConfig['flavor'] ?? flavor;
         await createIconsFromConfig(yamlConfig, flavor);
       }
       print('\n✓ Successfully generated launcher icons for flavors');
@@ -83,6 +84,7 @@ Future<void> createIconsFromArguments(List<String> arguments) async {
 
 Future<void> createIconsFromConfig(Map<String, dynamic> config,
     [String? flavor]) async {
+  flavor ??= config['flavor'];
   if (!isImagePathInConfig(config)) {
     throw const InvalidConfigException(errorMissingImagePath);
   }
